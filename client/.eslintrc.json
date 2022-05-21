@@ -1,0 +1,79 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly",
+        "Translator": "readonly"
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "indent": [
+            "error",
+            2,
+            { "SwitchCase": 1 }
+        ],
+        "quotes": [
+            "warn",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "react/jsx-uses-react": 2,
+        "react/jsx-uses-vars": 2,
+        "@typescript-eslint/indent": [
+            "error",
+            2
+        ],
+        "react/jsx-key": "error",
+        "no-nested-ternary": "error",
+        "no-unneeded-ternary": "error",
+        "no-unused-expressions": "error",
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "curly": [
+            "error",
+            "multi-line"
+        ],
+        "max-len": [
+            "error",
+            { "code": 120 }
+        ],
+        "arrow-parens": "error",
+        "eqeqeq": "error",
+        "no-confusing-arrow": "warn",
+        "no-constant-condition": "error",
+        "dot-notation": "error",
+        "no-shadow": "warn",
+        "object-property-newline": [
+            "error", { "allowAllPropertiesOnSameLine": true }
+        ],
+        "spaced-comment": ["error", "always"],
+        "object-shorthand": ["error", "always"],
+        "prefer-spread": "error"
+    }
+}

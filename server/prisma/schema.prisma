@@ -1,0 +1,202 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model borrel {
+  id               Int     @id @default(autoincrement())
+  userId           String? @db.VarChar(255)
+  activeProductsId String? @db.VarChar(255)
+  internal         String? @db.VarChar(255)
+  theme            String? @db.VarChar(255)
+  date             String? @db.VarChar(255)
+
+  @@index([activeProductsId], name: "Active_products_id")
+  @@index([userId], name: "User_id")
+}
+
+model borrel_transactions {
+  id        Int    @id @default(autoincrement())
+  borrelId  Int
+  timestamp String @db.VarChar(255)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model borrel_transactions_row {
+  transactionId Int     @default(autoincrement())
+  productId     String? @db.VarChar(255)
+  amount        String? @db.VarChar(255)
+
+  @@index([productId], name: "Product_id")
+  @@index([transactionId], name: "transaction_id")
+  @@ignore
+}
+
+model category {
+  id       Int     @id @default(autoincrement())
+  category String? @db.VarChar(255)
+}
+
+model comment {
+  id      Int     @id @default(autoincrement())
+  comment String? @db.VarChar(255)
+}
+
+model display_category {
+  id     Int     @id
+  name   String? @db.VarChar(255)
+  active String? @db.VarChar(255)
+
+  @@index([id], name: "Id")
+}
+
+model external_information {
+  id           Int     @id @default(autoincrement())
+  borrelId     String? @db.VarChar(255)
+  budgetNumber String? @db.VarChar(255)
+  contact      String? @db.VarChar(255)
+  commentId    String? @db.VarChar(255)
+
+  @@index([commentId], name: "Comment_id")
+  @@index([borrelId], name: "borrel_id")
+}
+
+model kent_transactions {
+  id        Int     @id @default(autoincrement())
+  userId    String? @db.VarChar(255)
+  timestamp String? @db.VarChar(255)
+
+  @@index([userId], name: "User_Id")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model kent_transactions_row {
+  transactionId Int     @default(autoincrement())
+  productId     String? @db.VarChar(255)
+  amount        String? @db.VarChar(255)
+
+  @@index([productId], name: "Product_id")
+  @@index([transactionId], name: "transaction_id")
+  @@ignore
+}
+
+model loss_transactions {
+  id        Int     @id @default(autoincrement())
+  userId    String? @db.VarChar(255)
+  timestamp String? @db.VarChar(255)
+  reasonId  String? @db.VarChar(255)
+  commentId String? @db.VarChar(255)
+
+  @@index([commentId], name: "Comment_id")
+  @@index([reasonId], name: "Reason_id")
+  @@index([userId], name: "User_id")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model loss_transactions_row {
+  transactionId Int     @default(autoincrement())
+  productId     String? @db.VarChar(255)
+  amount        String? @db.VarChar(255)
+
+  @@index([productId], name: "Product_id")
+  @@index([transactionId], name: "transaction_id")
+  @@ignore
+}
+
+model price_mutations {
+  id        Int       @id @default(autoincrement())
+  userId    String?   @db.VarChar(255)
+  productId String?   @db.VarChar(255)
+  newPrice  String?   @db.VarChar(255)
+  internal  DateTime? @db.DateTime(0)
+  timestamp String?   @db.VarChar(255)
+
+  @@index([productId], name: "Product_id")
+  @@index([userId], name: "User_id")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model product_category {
+  productId  Int     @default(autoincrement())
+  categoryId String? @db.VarChar(255)
+
+  @@index([categoryId], name: "Category_id")
+  @@index([productId], name: "Product_id")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model product_display {
+  productId         Int  @default(autoincrement())
+  displayCategoryId Int?
+
+  @@index([displayCategoryId], name: "Display_category_id")
+  @@index([productId], name: "Product_id")
+  @@ignore
+}
+
+model products {
+  id              Int     @id @default(autoincrement())
+  name            String? @db.VarChar(255)
+  vat             String? @db.VarChar(255)
+  productCategory String? @db.VarChar(255)
+}
+
+model reason {
+  id   Int     @id @default(autoincrement())
+  name String? @db.VarChar(255)
+}
+
+model stock_transactions {
+  id        Int     @id @default(autoincrement())
+  userId    String? @db.VarChar(255)
+  timestamp String? @db.VarChar(255)
+  commentId String? @db.VarChar(255)
+
+  @@index([userId], name: "User_id")
+  @@index([commentId], name: "comment_id")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model stock_transactions_row {
+  transactionId Int     @default(autoincrement())
+  productId     String? @db.VarChar(255)
+  amount        String? @db.VarChar(255)
+
+  @@index([productId], name: "Product_id")
+  @@index([transactionId], name: "transaction_id")
+  @@ignore
+}
+
+model user_rights {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  commActiefLid Boolean? @default(false)
+  commAAPP      Boolean? @default(false)
+  commBestuur   Boolean? @default(false)
+  commBorrelcie Boolean? @default(false)
+  commCHIP      Boolean? @default(false)
+  privAds       Boolean? @default(false)
+  privUser      Boolean? @default(false)
+
+  @@index([userId], name: "User_Id")
+}
+
+model user {
+  id               Int     @id @default(autoincrement())
+  vunetId          String? @db.VarChar(6)
+  firstName        String? @db.VarChar(255)
+  lastName         String? @db.VarChar(255)
+  insertion        String? @db.VarChar(255)
+  nickName         String? @db.VarChar(255)
+  passWord         String? @db.VarChar(255)
+  pinCode          String? @db.VarChar(255)
+  validationMethod String? @db.VarChar(255)
+
+  @@index([pinCode], name: "PinCode")
+  @@index([vunetId], name: "VUnetId")
+}
